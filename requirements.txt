@@ -1,0 +1,48 @@
+# --- core runtime ---
+requests>=2.31           # Ollama HTTP API, web fetch
+fastapi>=0.110           # backend
+uvicorn[standard]>=0.29  # ASGI server
+pydantic>=2.6            # request models
+python-multipart>=0.0.9  # file uploads (voice endpoint)
+
+# --- desktop shell (optional but recommended) ---
+pywebview>=5.0           # fullscreen native window; falls back to browser
+
+# --- tools ---
+beautifulsoup4>=4.12     # fetch_url text extraction + web_search
+pyperclip>=1.8           # clipboard read/write
+Pillow>=10.2             # screenshot capture
+psutil>=5.9              # live dashboard telemetry (CPU / memory / thermals)
+
+# --- voice (optional; heavier) ---
+faster-whisper>=1.0      # speech-in
+piper-tts>=1.2           # speech-out  (or install the `piper` CLI)
+
+# --- OCR (optional; also needs the Tesseract binary installed) ---
+pytesseract>=0.3.10
+
+# --- computer control (mouse/keyboard automation) ---
+pyautogui>=0.9.54        # mouse_move/click, type_text, press_keys, media keys
+
+# --- system & power ---
+plyer>=2.1               # cross-platform desktop notifications (optional)
+pycaw>=20240210 ; sys_platform == "win32"    # set_volume on Windows
+comtypes>=1.2 ; sys_platform == "win32"      # pycaw dependency
+
+# --- documents (all optional; only needed for those tools) ---
+python-docx>=1.1         # create/read Word .docx
+openpyxl>=3.1            # create/read Excel .xlsx
+python-pptx>=0.6         # create PowerPoint .pptx
+fpdf2>=2.7               # create PDF
+pypdf>=4.0               # read PDF text
+
+# --- browser automation (optional; heavier) ---
+# pip install playwright && playwright install chromium
+playwright>=1.44
+
+# --- Windows-only tools (installed only on Windows) ---
+pywinauto>=0.6.8 ; sys_platform == "win32"
+
+# Ollama itself is a separate install: https://ollama.com
+# Models (pull with `ollama pull <name>`):
+#   llama3.2:1b  qwen2.5-coder:3b  qwen3:4b  moondream:1.8b  phi3.5:3.8b  nomic-embed-text

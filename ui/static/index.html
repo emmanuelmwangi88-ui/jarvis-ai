@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sakura AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400..600&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/base.css">
+</head>
+<body>
+
+<!-- animated background layers -->
+<div id="aurora"><span class="a"></span><span class="b"></span><span class="c"></span></div>
+
+<!-- cherry blossom trees (mirrored into both bottom corners) -->
+<div id="trees">
+  <svg class="tL" viewBox="0 0 320 620" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <g class="sway1">
+      <path class="trunk" d="M150 620 C150 520 138 470 120 430 C110 405 108 380 120 360 C104 372 96 398 104 424
+        C88 402 78 372 92 344 C74 366 70 402 96 436 C110 470 128 520 132 620 Z"/>
+      <path class="trunk" d="M132 452 C150 430 176 420 206 424 C182 424 158 438 146 460 Z"/>
+      <path class="trunk" d="M120 400 C96 388 70 392 48 410 C74 400 100 404 120 416 Z"/>
+      <path class="trunk" d="M116 372 C132 348 160 336 190 340 C164 342 142 356 130 380 Z"/>
+    </g>
+    <g class="sway2">
+      <g class="bloom">
+        <circle cx="210" cy="416" r="34"/><circle cx="176" cy="398" r="30"/><circle cx="240" cy="440" r="26"/>
+        <circle cx="196" cy="452" r="24"/><circle cx="246" cy="404" r="20"/>
+      </g>
+      <g class="bloom2">
+        <circle cx="204" cy="412" r="16"/><circle cx="230" cy="428" r="13"/><circle cx="182" cy="430" r="12"/>
+      </g>
+      <g class="bloom">
+        <circle cx="52" cy="404" r="32"/><circle cx="26" cy="424" r="26"/><circle cx="78" cy="420" r="24"/>
+        <circle cx="44" cy="380" r="22"/>
+      </g>
+      <g class="bloom2"><circle cx="50" cy="404" r="15"/><circle cx="30" cy="420" r="12"/><circle cx="72" cy="416" r="11"/></g>
+      <g class="bloom">
+        <circle cx="196" cy="338" r="34"/><circle cx="164" cy="320" r="28"/><circle cx="224" cy="356" r="24"/>
+        <circle cx="182" cy="366" r="22"/><circle cx="150" cy="352" r="18"/>
+      </g>
+      <g class="bloom2"><circle cx="190" cy="336" r="16"/><circle cx="214" cy="352" r="12"/><circle cx="168" cy="344" r="12"/></g>
+    </g>
+  </svg>
+  <svg class="tR" viewBox="0 0 320 620" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <g class="sway2">
+      <path class="trunk" d="M150 620 C150 520 138 470 120 430 C110 405 108 380 120 360 C104 372 96 398 104 424
+        C88 402 78 372 92 344 C74 366 70 402 96 436 C110 470 128 520 132 620 Z"/>
+      <path class="trunk" d="M132 452 C150 430 176 420 206 424 C182 424 158 438 146 460 Z"/>
+      <path class="trunk" d="M120 400 C96 388 70 392 48 410 C74 400 100 404 120 416 Z"/>
+    </g>
+    <g class="sway1">
+      <g class="bloom">
+        <circle cx="210" cy="416" r="34"/><circle cx="176" cy="398" r="30"/><circle cx="240" cy="440" r="26"/>
+        <circle cx="196" cy="452" r="24"/>
+      </g>
+      <g class="bloom2"><circle cx="204" cy="412" r="16"/><circle cx="230" cy="428" r="13"/></g>
+      <g class="bloom">
+        <circle cx="52" cy="404" r="32"/><circle cx="26" cy="424" r="26"/><circle cx="78" cy="420" r="24"/>
+      </g>
+      <g class="bloom2"><circle cx="50" cy="404" r="15"/><circle cx="30" cy="420" r="12"/></g>
+      <g class="bloom">
+        <circle cx="196" cy="338" r="32"/><circle cx="164" cy="320" r="26"/><circle cx="224" cy="356" r="22"/>
+      </g>
+      <g class="bloom2"><circle cx="190" cy="336" r="15"/><circle cx="214" cy="352" r="12"/></g>
+    </g>
+  </svg>
+</div>
+
+<canvas id="petals"></canvas>
+
+<div class="app">
+  <!-- LEFT RAIL -->
+  <div class="rail">
+    <svg class="logo" viewBox="0 0 40 40"><defs><radialGradient id="lg" cx="42%" cy="38%" r="65%"><stop offset="0%" stop-color="#fde4ee"/><stop offset="55%" stop-color="#fb7185"/><stop offset="100%" stop-color="#9d174d"/></radialGradient></defs><g fill="url(#lg)"><circle cx="20" cy="20" r="4.2"/><g id="pt"><ellipse cx="20" cy="11" rx="3.4" ry="6"/></g></g><use href="#pt" transform="rotate(72 20 20)" fill="url(#lg)"/><use href="#pt" transform="rotate(144 20 20)" fill="url(#lg)"/><use href="#pt" transform="rotate(216 20 20)" fill="url(#lg)"/><use href="#pt" transform="rotate(288 20 20)" fill="url(#lg)"/></svg>
+    <button class="active" data-tab="chat"><span data-ic="chat"></span><span class="tip">Assistant</span></button>
+    <button data-tab="code"><span data-ic="code"></span><span class="tip">Code &amp; Scripting</span></button>
+    <button data-tab="research"><span data-ic="globe"></span><span class="tip">Deep Research</span></button>
+    <button data-tab="terminal"><span data-ic="term"></span><span class="tip">Terminal</span></button>
+    <button data-tab="voice"><span data-ic="wave"></span><span class="tip">Voice</span></button>
+    <div class="sp"></div>
+    <button id="settingsBtn"><span data-ic="gear"></span><span class="tip">Settings &amp; themes</span></button>
+    <button id="palBtn"><span data-ic="cmd"></span><span class="tip">Command palette ⌘K</span></button>
+    <button id="historyBtn"><span data-ic="clock"></span><span class="tip">Recent chats</span></button>
+    <button id="newBtn"><span data-ic="plus"></span><span class="tip">New chat ⌘N</span></button>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="chead">
+      <div><div class="title">Sakura <b>AI</b></div><div class="sub">Autonomous Local Agent</div></div>
+      <div class="grow"></div>
+      <div class="pill"><span class="d" id="connDot"></span><span id="connTxt" class="mono">connecting…</span></div>
+      <button class="ib" id="reflectBtn" title="Reflect &amp; learn now"><span data-ic="spark"></span></button>
+      <button class="ib" id="settingsBtn2" title="Settings &amp; themes" onclick="window.openSettings&&window.openSettings()"><span data-ic="gear"></span></button>
+    </div>
+    <div class="feed" id="feed"></div>
+    <div class="composer">
+      <div class="cbar">
+        <button class="cico" id="screenBtn" title="Analyze screen"><span data-ic="monitor"></span></button>
+        <textarea id="input" rows="1" placeholder="Ask Sakura anything — it can act on your machine, search the web, and learn…"></textarea>
+        <button class="cico mic" id="micBtn" title="Hold to talk"><span data-ic="mic"></span></button>
+        <button class="csend" id="sendBtn"><span data-ic="send"></span></button>
+      </div>
+      <div id="attachments" class="attachments"></div>
+      <div class="chint"><span>Enter to send · Shift+Enter newline · ⌘K commands · paste/drop images</span><span id="ctxMeta">local engine</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: AI CORE -->
+  <div class="core">
+    <div class="orbwrap">
+      <div class="orb" id="orb">
+        <div class="halo"></div>
+        <div class="glass"></div>
+        <div class="orbit o1"><i></i></div>
+        <div class="orbit o2"><i></i></div>
+        <div class="orbit o3"><i></i></div>
+      </div>
+      <div class="orbstate" id="orbState">Idle</div>
+      <div class="orbsub" id="orbSub">Trusted · ready</div>
+      <div class="orbcat" id="orbCat" hidden></div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="shield"></span>Autonomy<span class="r" id="profTag">trusted</span></h3>
+      <div class="seg" id="profSeg">
+        <button data-p="locked">Locked</button>
+        <button data-p="trusted" class="on">Trusted</button>
+        <button data-p="unleashed">Unleashed</button>
+      </div>
+      <div class="profnote" id="profNote">Full capability. Only genuinely destructive commands ask once.</div>
+      <div class="caps" id="caps">
+        <div class="cap on" data-key="desktop"><span class="dt"></span>Desktop</div>
+        <div class="cap on" data-key="shell"><span class="dt"></span>Shell</div>
+        <div class="cap on" data-key="fs_write"><span class="dt"></span>Files</div>
+        <div class="cap on" data-key="web"><span class="dt"></span>Web</div>
+        <div class="cap on" data-key="audio"><span class="dt"></span>Audio</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="pulse"></span>Performance<span class="r" id="perfTag">auto</span></h3>
+      <div class="autobadge"><span class="dt"></span><span id="autoTune">Auto-tuning to your hardware…</span></div>
+      <div class="profnote">Sakura sizes the model, context length, CPU threads, RAM use and GPU offload <b>automatically</b> to keep your machine fast and stable. Nothing to tune — it adapts on its own.</div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="brain"></span>Model<span class="r" id="ctxTag">—</span></h3>
+      <div class="modelname" id="modelName">—</div>
+      <div id="modelMeta" class="mmeta"></div>
+      <button class="modelretry" id="modelRetry"><span data-ic="refresh"></span> Retry connection &amp; load models</button>
+      <div id="modelRetryNote" class="mmeta"></div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="pulse"></span>Live Telemetry</h3>
+      <div class="graphs">
+        <div class="graph">
+          <div class="grow"><span class="gk">CPU</span><span class="gv teal"><b id="stCpu">—</b> %</span></div>
+          <canvas class="spark" id="sparkCpu"></canvas>
+        </div>
+        <div class="graph">
+          <div class="grow"><span class="gk">Memory</span><span class="gv gold"><b id="stMem">—</b> GB</span></div>
+          <canvas class="spark" id="sparkMem"></canvas>
+        </div>
+        <div class="graph">
+          <div class="grow"><span class="gk">Throughput</span><span class="gv cyan"><b id="stTps">0.0</b> tok/s</span></div>
+          <canvas class="spark" id="sparkTps"></canvas>
+        </div>
+        <div class="graph" id="tempGraph" style="display:none">
+          <div class="grow"><span class="gk">Temp</span><span class="gv rose"><b id="stTemp">—</b> °C</span></div>
+          <canvas class="spark" id="sparkTemp"></canvas>
+        </div>
+      </div>
+      <div id="hwLine" style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.5"></div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="pulse"></span>Session</h3>
+      <div class="sess" id="sessGrid">
+        <div class="si"><b id="ssUp">0m</b><span>uptime</span></div>
+        <div class="si"><b id="ssMsg">0</b><span>messages</span></div>
+        <div class="si"><b id="ssPeak">0.0</b><span>peak tok/s</span></div>
+        <div class="si"><b id="ssSkill">0</b><span>skills</span></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="clock"></span>Scheduled Tasks<span class="r" id="taskCount">0</span></h3>
+      <div id="taskList"><div class="empty">No scheduled tasks. Ask Sakura to "remind me…" or "every hour…".</div></div>
+    </div>
+
+    <div class="box" style="flex-shrink:0">
+      <h3><span class="ic" data-ic="activity"></span>Activity Stream</h3>
+      <div class="activity" id="activity"></div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="brain"></span>Memory &amp; Knowledge<span class="r" id="memTag">0 docs</span></h3>
+      <div id="memList"><div class="empty">Nothing remembered yet. Sakura saves durable facts about you and your setup as it learns.</div></div>
+    </div>
+
+    <div class="box">
+      <h3><span class="ic" data-ic="brain"></span>Self-Learning<span class="r" id="skillCount">0 skills</span></h3>
+      <div id="skillList"><div class="empty">No skills learned yet. As Sakura works, it teaches itself reusable procedures.</div></div>
+    </div>
+
+    <div class="box" style="flex-shrink:0">
+      <h3><span class="ic" data-ic="bolt"></span>Quick Actions</h3>
+      <div class="qa" id="qaGrid">
+        <button data-q="Take a screenshot of my screen and describe what you see.">Screenshot</button>
+        <button data-q="Create a new blank Word document called Notes on my Desktop.">New doc</button>
+        <button data-q="What apps are currently running? List the top ones by memory.">Processes</button>
+        <button data-q="Summarize what we've done in this chat so far.">Summarize</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- command palette -->
+<div id="pal"><div class="palbox">
+  <input id="palIn" placeholder="Type a command…" />
+  <div id="palOpts"></div>
+</div></div>
+
+<!-- settings + themes modal -->
+<div id="settings"><div class="setbox">
+  <div class="sethead">
+    <span class="ic" data-ic="gear" style="color:var(--teal)"></span>
+    <h2>Settings</h2>
+    <button class="x" id="setClose"><span data-ic="plus" style="transform:rotate(45deg);display:block"></span></button>
+  </div>
+  <div class="setbody"></div>
+</div></div>
+
+<!-- recent chats / history modal -->
+<div id="history"><div class="setbox">
+  <div class="sethead">
+    <span class="ic" data-ic="clock" style="color:var(--teal)"></span>
+    <h2>Recent Chats</h2>
+    <button class="x" id="histClose"><span data-ic="plus" style="transform:rotate(45deg);display:block"></span></button>
+  </div>
+  <div class="setbody" id="histBody"></div>
+</div></div>
+
+<div id="toast"></div>
+
+<script src="/static/js/themes.js"></script>
+<script src="/static/js/background.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
